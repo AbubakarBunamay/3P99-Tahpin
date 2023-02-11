@@ -14,5 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scene 2.unity
     guid: 66daadee57dd7104da9123cca6be0cfe
+  - enabled: 1
+    path: Assets/Scenes/Trivia.unity
+    guid: c9786ddc0f8fc2b4cb2f29f47724edf2
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 2a2297937a4621c4d9336ef8921bad87, type: 2}
