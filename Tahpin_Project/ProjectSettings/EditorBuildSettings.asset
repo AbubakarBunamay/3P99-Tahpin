@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Trivia.unity
     guid: c9786ddc0f8fc2b4cb2f29f47724edf2
+  - enabled: 1
+    path: Assets/Scenes/Catch_finances.unity
+    guid: 284729c8c827a5e49a51c0e95fc1c768
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 2a2297937a4621c4d9336ef8921bad87, type: 2}
