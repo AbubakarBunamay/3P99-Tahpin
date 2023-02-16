@@ -1222,6 +1222,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259984456}
   m_CullTransparentMesh: 1
+--- !u!1 &1418856904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1418856906}
+  - component: {fileID: 1418856905}
+  m_Layer: 0
+  m_Name: TriviaManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1418856905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418856904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee1eeaf1f834c7841a01c2138eff788c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qNa:
+  - Question: Which is the correct Response
+    Answers:
+    - True
+    - Wrong
+    - Wrong
+    - Wrong
+    CorrectAnswer: 1
+  - Question: Which is the correct Response
+    Answers:
+    - Wrong
+    - Wrong
+    - True
+    - Wrong
+    CorrectAnswer: 3
+  - Question: Which is the correct Response
+    Answers:
+    - Wrong
+    - True
+    - Wrong
+    - Wrong
+    CorrectAnswer: 2
+  choices:
+  - {fileID: 446557262}
+  - {fileID: 1653424506}
+  - {fileID: 741442525}
+  - {fileID: 2145035100}
+  currentQuestion: 1
+  Questiontxt: {fileID: 1817694329}
+  question_counter: 0
+--- !u!4 &1418856906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418856904}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 646.4758, y: 255.94017, z: -22.73121}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1597011285
 GameObject:
   m_ObjectHideFlags: 0
@@ -1567,7 +1641,7 @@ GameObject:
   - component: {fileID: 1817694330}
   - component: {fileID: 1817694329}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: QuestionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
