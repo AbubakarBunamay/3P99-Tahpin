@@ -2800,7 +2800,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6346532851234205069, guid: f3e126a7998fb2444964bded37b9d734, type: 3}
       propertyPath: m_Name
-      value: Victory_Screen
+      value: CF_Victory_Screen
       objectReference: {fileID: 0}
     - target: {fileID: 6346532851234205069, guid: f3e126a7998fb2444964bded37b9d734, type: 3}
       propertyPath: m_IsActive
