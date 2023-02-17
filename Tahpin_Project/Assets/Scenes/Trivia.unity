@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 446557266}
   - component: {fileID: 446557265}
   - component: {fileID: 446557264}
+  - component: {fileID: 446557267}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -419,7 +420,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 446557265}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 446557267}
+        m_TargetAssemblyTypeName: AnswerScript, Assembly-CSharp
+        m_MethodName: Answer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &446557265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,6 +471,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446557262}
   m_CullTransparentMesh: 1
+--- !u!114 &446557267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446557262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9927a7159d84f95499062baf9de52628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCorrect: 0
+  TriviaM: {fileID: 1418856905}
 --- !u!1 &537403787
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,6 +716,7 @@ GameObject:
   - component: {fileID: 741442529}
   - component: {fileID: 741442528}
   - component: {fileID: 741442527}
+  - component: {fileID: 741442530}
   m_Layer: 5
   m_Name: Button (2)
   m_TagString: Untagged
@@ -760,7 +788,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 741442528}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 741442530}
+        m_TargetAssemblyTypeName: AnswerScript, Assembly-CSharp
+        m_MethodName: Answer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &741442528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,6 +839,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 741442525}
   m_CullTransparentMesh: 1
+--- !u!114 &741442530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741442525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9927a7159d84f95499062baf9de52628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCorrect: 0
+  TriviaM: {fileID: 1418856905}
 --- !u!1 &974303162
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,6 +1438,7 @@ GameObject:
   - component: {fileID: 1653424510}
   - component: {fileID: 1653424509}
   - component: {fileID: 1653424508}
+  - component: {fileID: 1653424511}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -1455,7 +1510,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1653424509}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1653424511}
+        m_TargetAssemblyTypeName: AnswerScript, Assembly-CSharp
+        m_MethodName: Answer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1653424509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1494,6 +1561,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653424506}
   m_CullTransparentMesh: 1
+--- !u!114 &1653424511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653424506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9927a7159d84f95499062baf9de52628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCorrect: 0
+  TriviaM: {fileID: 1418856905}
 --- !u!1 &1691994646
 GameObject:
   m_ObjectHideFlags: 0
@@ -2036,6 +2117,7 @@ GameObject:
   - component: {fileID: 2145035104}
   - component: {fileID: 2145035103}
   - component: {fileID: 2145035102}
+  - component: {fileID: 2145035105}
   m_Layer: 5
   m_Name: Button (3)
   m_TagString: Untagged
@@ -2107,7 +2189,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2145035103}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2145035105}
+        m_TargetAssemblyTypeName: AnswerScript, Assembly-CSharp
+        m_MethodName: Answer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2145035103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2146,3 +2240,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145035100}
   m_CullTransparentMesh: 1
+--- !u!114 &2145035105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145035100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9927a7159d84f95499062baf9de52628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCorrect: 0
+  TriviaM: {fileID: 1418856905}
