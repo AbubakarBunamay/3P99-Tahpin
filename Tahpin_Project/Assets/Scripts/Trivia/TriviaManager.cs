@@ -22,10 +22,23 @@ public class TriviaManager : MonoBehaviour
     public int question_counter = 0;
 
 
+    [SerializeField] private GameObject triviaMain;
+    [SerializeField] private GameObject triviaResults;
+
+    [SerializeField] private TextMeshPro rightAnswerCounterResults;
+    [SerializeField] private TextMeshPro expCounterResults;
+    [SerializeField] private GameObject homeButton;
+
+    [SerializeField] private TextMeshProUGUI rightAnswerCounter;
+    private int highScore = 0;
+    private int exp = 100;
+
+
     private void Start()
     {
         //This is to set up the first question show, I dont know I need this but work
         question_counter++;
+        rightAnswerCounter.text = $"{highScore}";
         if (question_counter != 1)
         {
             qNa.RemoveAt(currentQuestion);
@@ -34,8 +47,13 @@ public class TriviaManager : MonoBehaviour
     }
 
     //Correct Function to proceed
-    public void correct()
-    {   
+    public void correct(bool isCorrect)
+    {
+        if (isCorrect)
+        {
+            highScore++;
+            rightAnswerCounter.text = $"{highScore}";
+        }
         qNa.RemoveAt(currentQuestion);
         genereateQuestion();
     }
@@ -76,7 +94,12 @@ public class TriviaManager : MonoBehaviour
         {
             //Possible UI for such
             Debug.Log("End of Questions");
+            triviaMain.SetActive(false);
+            triviaResults.SetActive(true);
+            rightAnswerCounterResults.text = $"Right Answers: {highScore}";
+            expCounterResults.text = $"Total Exp earned: {exp * highScore}";
             //or return to the main menu
+            homeButton.SetActive(true);
         }
 
     }
