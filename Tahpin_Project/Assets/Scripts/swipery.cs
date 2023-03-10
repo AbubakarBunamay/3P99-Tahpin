@@ -29,26 +29,30 @@ public class swipery : MonoBehaviour, IDragHandler, IEndDragHandler
     // Called before the first frame update
     void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
-
         // Store the initial position of the panel
-        panelLocation = rectTransform.position;
+        panelLocation = transform.position;
         minYPosition = panelLocation.y;
     }
 
     public void OnDrag(PointerEventData data)
     {
+        
         // Calculate the difference in y between the press and drag position
         float difference = data.pressPosition.y - data.position.y;
 
         // Move the panel up or down based on the difference
-        rectTransform.anchoredPosition = panelLocation - new Vector3(0f, difference);
+        transform.position = panelLocation - new Vector3(0, difference, 0);
 
-        if (rectTransform.anchoredPosition.y >= maxYPosition)
+        if (transform.position.y >= maxYPosition)
         {
-            rectTransform.anchoredPosition = panelLocation - new Vector3(0f, maxYPosition);
+            transform.position = new Vector3(panelLocation.x, maxYPosition, panelLocation.z);
         }
-        Debug.Log(rectTransform.position.y);
+        if (transform.position.y <= minYPosition)
+        {
+            transform.position = new Vector3(panelLocation.x, minYPosition, panelLocation.z);
+        }
+
+        Debug.Log(difference);
 
         
 
