@@ -7,8 +7,8 @@ public class Sc_Manager : MonoBehaviour
 {
     
 
-    public void ChangeScene(int sceneBuildID)
+    public void ChangeScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneBuildID);
+        SceneManager.LoadScene(sceneName);
     }
 }

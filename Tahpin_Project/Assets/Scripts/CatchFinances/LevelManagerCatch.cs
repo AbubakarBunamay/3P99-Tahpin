@@ -32,6 +32,12 @@ public class LevelManagerCatch : MonoBehaviour
     private int highScore = 0;
     private int expTracker = 100;
 
+    private void Start()
+    {
+        DropAnswers();
+        questionText.text = questionAnswers[currentQuestionint].Question;
+    }
+
     public void StartGame()
     {
         DropAnswers();
