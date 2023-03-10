@@ -5,6 +5,12 @@ using UnityEngine.EventSystems;
 
 public class swipery : MonoBehaviour, IDragHandler, IEndDragHandler
 {
+
+    // Restrict the drag ablilty between two points
+    [SerializeField] private float maxYPosition;    
+    private float minYPosition;
+    private RectTransform rectTransform;
+
     // Store the initial position of the panel
     private Vector3 panelLocation;
 
@@ -23,8 +29,11 @@ public class swipery : MonoBehaviour, IDragHandler, IEndDragHandler
     // Called before the first frame update
     void Start()
     {
+        rectTransform = GetComponent<RectTransform>();
+
         // Store the initial position of the panel
-        panelLocation = transform.position;
+        panelLocation = rectTransform.position;
+        minYPosition = panelLocation.y;
     }
 
     public void OnDrag(PointerEventData data)
@@ -33,7 +42,16 @@ public class swipery : MonoBehaviour, IDragHandler, IEndDragHandler
         float difference = data.pressPosition.y - data.position.y;
 
         // Move the panel up or down based on the difference
-        transform.position = panelLocation - new Vector3(0, difference, 0);
+        rectTransform.anchoredPosition = panelLocation - new Vector3(0f, difference);
+
+        if (rectTransform.anchoredPosition.y >= maxYPosition)
+        {
+            rectTransform.anchoredPosition = panelLocation - new Vector3(0f, maxYPosition);
+        }
+        Debug.Log(rectTransform.position.y);
+
+        
+
     }
 
 
