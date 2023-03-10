@@ -129,14 +129,13 @@ PlayerSettings:
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
   m_SupportedAspectRatios:
-    4:3: 0
-    5:4: 0
-    16:10: 0
-    16:9: 0
+    4:3: 1
+    5:4: 1
+    16:10: 1
+    16:9: 1
     Others: 1
   bundleVersion: 2.0
-  preloadedAssets:
-  - {fileID: 9030739396873231664, guid: 73b7ceda990fbdb448b37edcb1d73b6f, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
