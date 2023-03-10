@@ -9,14 +9,14 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Scene 1.unity
-    guid: 3fc8acdd13e6c734bafef6554d6fdbcd
-  - enabled: 1
-    path: Assets/Scenes/Scene 2.unity
-    guid: 66daadee57dd7104da9123cca6be0cfe
-  - enabled: 1
     path: Assets/Scenes/Scene 3.unity
     guid: 291d17cb4033f484284d53cde1cc288c
+  - enabled: 0
+    path: Assets/Scenes/Scene 1.unity
+    guid: 3fc8acdd13e6c734bafef6554d6fdbcd
+  - enabled: 0
+    path: Assets/Scenes/Scene 2.unity
+    guid: 66daadee57dd7104da9123cca6be0cfe
   - enabled: 1
     path: Assets/Scenes/Trivia.unity
     guid: c9786ddc0f8fc2b4cb2f29f47724edf2
@@ -24,4 +24,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Catch_finances.unity
     guid: 284729c8c827a5e49a51c0e95fc1c768
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 73b7ceda990fbdb448b37edcb1d73b6f, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 2a2297937a4621c4d9336ef8921bad87, type: 2}
