@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 public class swiperx : MonoBehaviour, IDragHandler, IEndDragHandler
 {
+    [SerializeField] private float maxXPosition;
+    [SerializeField] private float minXPosition;
+
     // Store the initial position of the panel
     private Vector3 panelLocation;
 
@@ -35,6 +38,14 @@ public class swiperx : MonoBehaviour, IDragHandler, IEndDragHandler
 
         // Move the panel to the left or right based on the difference
         transform.position = panelLocation - new Vector3(difference, 0, 0);
+        if (transform.position.x >= maxXPosition)
+        {
+            transform.position = new Vector3(maxXPosition, panelLocation.y, panelLocation.z);
+        }
+        if (transform.position.x <= minXPosition)
+        {
+            transform.position = new Vector3(minXPosition, panelLocation.y, panelLocation.z);
+        }
     }
 
     // Called when the panel is released after being dragged

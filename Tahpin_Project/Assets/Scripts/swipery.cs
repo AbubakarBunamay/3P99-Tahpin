@@ -52,10 +52,6 @@ public class swipery : MonoBehaviour, IDragHandler, IEndDragHandler
             transform.position = new Vector3(panelLocation.x, minYPosition, panelLocation.z);
         }
 
-        Debug.Log(difference);
-
-        
-
     }
 
 
