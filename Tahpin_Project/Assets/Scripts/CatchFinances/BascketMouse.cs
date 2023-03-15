@@ -8,13 +8,14 @@ public class BascketMouse : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float minXPosition;
     [SerializeField] private float maxXPosition;
+    [SerializeField] private float currentYPosition;
 
 
     private void Update()
     {
         Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPosition.z = 0;
-        mouseWorldPosition.y = 0;
+        mouseWorldPosition.y = currentYPosition;
         transform.position = mouseWorldPosition;
 
         // Side Restrictions
@@ -27,5 +28,10 @@ public class BascketMouse : MonoBehaviour
         {
             transform.position = new Vector3(minXPosition, 0, 0);
         }*/
+    }
+
+    public void UpdateYPosition(float yPos)
+    {
+        currentYPosition= yPos;
     }
 }

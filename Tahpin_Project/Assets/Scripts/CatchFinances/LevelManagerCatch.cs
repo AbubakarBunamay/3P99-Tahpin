@@ -26,6 +26,13 @@ public class LevelManagerCatch : MonoBehaviour
 
     [SerializeField] private GameObject homeButton;
 
+    [Header("Basket")]
+    [SerializeField] private BascketMouse basket;
+
+    [Header("WrongAnswerLayer")]
+    [SerializeField] private GameObject WrongLayerPrefab;
+    [SerializeField] private Transform WrongLayerPosition;
+
     private List<GameObject> fallingObjectsList = new List<GameObject>();
     private int currentQuestionint = 0;
 
@@ -65,7 +72,7 @@ public class LevelManagerCatch : MonoBehaviour
         {
             foreach (GameObject i in fallingObjectsList)
             {
-                float spawnPositionX = Random.Range(startSpawn.position.x, endSpawn.position.x);
+                /*float spawnPositionX = Random.Range(startSpawn.position.x, endSpawn.position.x);
                 if (!i.GetComponent<CatchAnswer>().isCorrect)
                 {
                     i.transform.position = new Vector3(spawnPositionX, bottomCollider.transform.position.y + 1.220249f, i.transform.position.z);
@@ -74,9 +81,22 @@ public class LevelManagerCatch : MonoBehaviour
                 else
                 {
                     Destroy(i);
-                }
+                }*/
+                Destroy(i);
             }
             fallingObjectsList.Clear();
+
+            Instantiate(WrongLayerPrefab,WrongLayerPosition.position,Quaternion.identity);
+            SpriteRenderer answerSpriteRenderer = correctAnswer.GetComponent<SpriteRenderer>();
+
+            WrongLayerPosition.position = new Vector3(
+                WrongLayerPosition.position.x, 
+                WrongLayerPosition.position.y + answerSpriteRenderer.bounds.size.y,
+                WrongLayerPosition.position.z
+                );
+
+            float newYPos = basket.transform.position.y + answerSpriteRenderer.bounds.size.y;
+            basket.UpdateYPosition(newYPos);
         }
 
         StopAllCoroutines();

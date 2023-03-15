@@ -6,13 +6,15 @@ public class CatchAnswer : MonoBehaviour
 {
 
     public bool isCorrect;
+    private bool onlyOneHit = false;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isCorrect)
+        if (isCorrect && onlyOneHit == false)
         {
             if (collision.gameObject.CompareTag("Bottom"))
             {
+                onlyOneHit = true;
                 LevelManagerCatch levelManager = FindObjectOfType<LevelManagerCatch>();
                 levelManager.BasketHit(false);
             }
