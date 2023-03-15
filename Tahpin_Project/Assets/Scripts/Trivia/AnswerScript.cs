@@ -16,13 +16,13 @@ public class AnswerScript : MonoBehaviour
         if (isCorrect)
         {
             Debug.Log("Correct");
-            TriviaM.correct(true);//proceed to the next question
+            TriviaM.Correct(true);//proceed to the next question
 
         }
         else
         {
             Debug.Log("Wrong");
-            TriviaM.correct(false);//proceed to the next question
+            TriviaM.Correct(false);//proceed to the next question
         }
     }
 }

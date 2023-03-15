@@ -1699,42 +1699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1eeaf1f834c7841a01c2138eff788c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qNa:
-  - Question: Which is the correct Response
-    Answers:
-    - True
-    - Wrong
-    - Wrong
-    - Wrong
-    CorrectAnswer: 1
-  - Question: Which is the correct Response
-    Answers:
-    - Wrong
-    - Wrong
-    - True
-    - Wrong
-    CorrectAnswer: 3
-  - Question: Which is the correct Response
-    Answers:
-    - Wrong
-    - True
-    - Wrong
-    - Wrong
-    CorrectAnswer: 2
-  - Question: Which is the correct Response
-    Answers:
-    - Wrong
-    - True
-    - Wrong
-    - Wrong
-    CorrectAnswer: 2
-  - Question: Which is the correct Response
-    Answers:
-    - Wrong
-    - True
-    - Wrong
-    - Wrong
-    CorrectAnswer: 2
+  qNa: []
   choices:
   - {fileID: 446557262}
   - {fileID: 1653424506}
