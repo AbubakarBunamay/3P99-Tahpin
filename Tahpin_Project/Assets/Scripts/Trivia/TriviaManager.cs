@@ -34,7 +34,7 @@ public class TriviaManager : MonoBehaviour
     private int highScore = 0;
     private int exp = 100;
 
-
+    private Coroutine questionCoroutine;
     private void Start()
     {
         //Questions CSV File
@@ -122,6 +122,13 @@ public class TriviaManager : MonoBehaviour
     //Generate Questions
     void GenerateQuestion()
     {
+        // Stop the previously running coroutine/timer
+        if (questionCoroutine != null)
+        {
+            StopCoroutine(questionCoroutine);
+        }
+
+
         if (qNa.Count > 0)
         {
             //Randomize the questions
@@ -134,7 +141,7 @@ public class TriviaManager : MonoBehaviour
             SetAnswers();
 
             // Start a timer to automatically generate the next question after 10 seconds
-            StartCoroutine(QuestionTimer(10f));
+            questionCoroutine = StartCoroutine(QuestionTimer(5f));
         }
         else
         {
@@ -146,6 +153,7 @@ public class TriviaManager : MonoBehaviour
             expCounterResults.text = $"Total Exp earned: {exp * highScore}";
             //or return to the main menu
             homeButton.SetActive(true);
+            questionCoroutine = null; //Null the coroutine
         }
     }
 
