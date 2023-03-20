@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class LevelManagerCatch : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class LevelManagerCatch : MonoBehaviour
     [Header("WrongAnswerLayer")]
     [SerializeField] private GameObject WrongLayerPrefab;
     [SerializeField] private Transform WrongLayerPosition;
+    private Vector3 originalWrongLayerPosition;
+    private Vector3 originalBasketPosition;
 
     private List<GameObject> fallingObjectsList = new List<GameObject>();
     private int currentQuestionint = 0;
@@ -41,14 +44,27 @@ public class LevelManagerCatch : MonoBehaviour
 
     private void Start()
     {
-        DropAnswers();
-        questionText.text = questionAnswers[currentQuestionint].Question;
+        originalBasketPosition = basket.transform.position;
+        originalWrongLayerPosition = WrongLayerPosition.position;
     }
 
     public void StartGame()
     {
         DropAnswers();
         questionText.text = questionAnswers[currentQuestionint].Question;
+    }
+
+    public void RestartGame()
+    {
+        highScore = 0;
+        expTracker = 100;
+        currentQuestionint = 0;
+        basket.UpdateYPosition(originalBasketPosition.y);
+        WrongLayerPosition.position = originalWrongLayerPosition;
+
+        catchFinancesMain.gameObject.SetActive(true);
+        catchFinancesResults.gameObject.SetActive(false);
+        homeButton.SetActive(false);
     }
 
     public void DropAnswers()
