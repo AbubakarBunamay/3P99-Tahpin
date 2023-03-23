@@ -1714,6 +1714,7 @@ MonoBehaviour:
   expCounterResults: {fileID: 1280284740}
   homeButton: {fileID: 1853958815}
   rightAnswerCounter: {fileID: 1231618858}
+  csvFile: {fileID: 4900000, guid: cfdd4440f4a79154dbcab8483db03988, type: 3}
 --- !u!4 &1418856906
 Transform:
   m_ObjectHideFlags: 0

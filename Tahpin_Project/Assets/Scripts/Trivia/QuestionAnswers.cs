@@ -5,6 +5,6 @@ public class QuestionAnswers
     public string Question;
     public string[] Answers;
     public int CorrectAnswer;
- 
+    public string Reason; 
 
 }

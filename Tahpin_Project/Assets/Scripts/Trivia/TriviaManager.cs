@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -35,10 +34,15 @@ public class TriviaManager : MonoBehaviour
     private int exp = 100;
 
     private Coroutine questionCoroutine;
+
+    //TextAsset
+    public TextAsset csvFile;
+
+
     private void Start()
     {
         //Questions CSV File
-        LoadQuestionsFromCSV("Assets/Scripts/Trivia/questions.csv");
+        LoadQuestionsFromCSV(csvFile);
 
         // This is to set up the first question to show
         question_counter++;
@@ -56,34 +60,55 @@ public class TriviaManager : MonoBehaviour
         Debug.Log("Number of questions: " + qNa.Count);
     }
 
-    private void LoadQuestionsFromCSV(string csvFilePath)
+    private void LoadQuestionsFromCSV(TextAsset csvText)
     {
         // Clear the existing questions list
         qNa.Clear();
 
-        // Read the CSV file and split the lines into an array
-        string[] lines = File.ReadAllLines(csvFilePath);
+        // Split the CSV data into lines
+        string[] lines = csvText.text.Split('\n');
 
         // Loop through each line of the CSV file and add the question and answers to the qNa list
         for (int i = 0; i < lines.Length; i++)
         {
-            string[] row = lines[i].Split(',');
+            string[] row = lines[i].Trim().Split(',');
+
+            if (row.Length != 7) // Error Handling
+            {
+                Debug.LogErrorFormat("Invalid CSV format on line {0}: expected 7 columns, found {1}", i + 1, row.Length);
+                continue;
+            }
             string question = row[0];
             string[] answers = new string[4];
             for (int j = 1; j < 5; j++)
             {
                 answers[j - 1] = row[j];
             }
-            int correctAnswer = int.Parse(row[5]);
+            int correctAnswer;
 
-            // Add the question and answers to the qNa list
-            qNa.Add(new QuestionAnswers { Question = question, Answers = answers, CorrectAnswer = correctAnswer });
+            if (!int.TryParse(row[5], out correctAnswer)) //Error Handling 
+            {
+                Debug.LogErrorFormat("Invalid CSV format on line {0}: invalid integer value for correct answer", i + 1);
+                continue;
+            }
 
+            // Extract the reason column
+            string reason = row[6];
+
+            // Add the question, answers, and reason to the qNa list
+            qNa.Add(new QuestionAnswers { Question = question, Answers = answers, CorrectAnswer = correctAnswer, Reason = reason });
+        }
+
+        if (qNa.Count == 0)
+        {
+            Debug.LogError("Failed to load any questions from CSV file");
+            return;
         }
 
         // Set up the first question
         GenerateQuestion();
     }
+
 
     //Correct Function to proceed
     public void Correct(bool isCorrect)
@@ -92,6 +117,9 @@ public class TriviaManager : MonoBehaviour
         {
             highScore++;
             rightAnswerCounter.text = $"{highScore}";
+
+            //Show Reason 
+            Debug.Log("Reason for correct answer: " + qNa[currentQuestion].Reason);
         }
         else
         {
@@ -99,6 +127,8 @@ public class TriviaManager : MonoBehaviour
             string feedback = $"Sorry, the correct answer was {qNa[currentQuestion].Answers[qNa[currentQuestion].CorrectAnswer - 1]}";
             Debug.Log(feedback);
         }
+
+        
 
         qNa.RemoveAt(currentQuestion);
         GenerateQuestion();
@@ -118,6 +148,8 @@ public class TriviaManager : MonoBehaviour
             }
         }
     }
+
+
 
     //Generate Questions
     void GenerateQuestion()
@@ -141,7 +173,7 @@ public class TriviaManager : MonoBehaviour
             SetAnswers();
 
             // Start a timer to automatically generate the next question after 10 seconds
-            questionCoroutine = StartCoroutine(QuestionTimer(5f));
+            questionCoroutine = StartCoroutine(QuestionTimer(10f));
         }
         else
         {
