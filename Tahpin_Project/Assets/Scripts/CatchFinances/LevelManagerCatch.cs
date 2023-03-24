@@ -44,6 +44,7 @@ public class LevelManagerCatch : MonoBehaviour
 
     private void Start()
     {
+        //Grab the original positions to reset later
         originalBasketPosition = basket.transform.position;
         originalWrongLayerPosition = WrongLayerPosition.position;
     }
@@ -56,12 +57,17 @@ public class LevelManagerCatch : MonoBehaviour
 
     public void RestartGame()
     {
+        // Reset Variables
         highScore = 0;
         expTracker = 100;
         currentQuestionint = 0;
+        // reset highScore text
+        highScoreCounterText.text = $"{highScore}";
+        // Reset Basket * WrongLayer positions
         basket.UpdateYPosition(originalBasketPosition.y);
         WrongLayerPosition.position = originalWrongLayerPosition;
 
+        // Reset the game scene
         catchFinancesMain.gameObject.SetActive(true);
         catchFinancesResults.gameObject.SetActive(false);
         homeButton.SetActive(false);
@@ -76,18 +82,22 @@ public class LevelManagerCatch : MonoBehaviour
     {
         if (answerWasCorrect)
         {
+            // Increase correct answer tracker
             highScore++;
             highScoreCounterText.text = $"{highScore}";
+            // Destroy all the falling objects
             foreach (GameObject i in fallingObjectsList)
             {
                 Destroy(i);
             }
+            // Clear the list
             fallingObjectsList.Clear();
         }
         else
         {
             foreach (GameObject i in fallingObjectsList)
             {
+                // Old code which placed the wrong answers at the bottom of the page
                 /*float spawnPositionX = Random.Range(startSpawn.position.x, endSpawn.position.x);
                 if (!i.GetComponent<CatchAnswer>().isCorrect)
                 {
@@ -98,13 +108,18 @@ public class LevelManagerCatch : MonoBehaviour
                 {
                     Destroy(i);
                 }*/
+
+                // Destroy the falling objects
                 Destroy(i);
             }
+            // Clear the list
             fallingObjectsList.Clear();
 
+            // Instantiate a layer of blocks to reduce the play area
             Instantiate(WrongLayerPrefab,WrongLayerPosition.position,Quaternion.identity);
-            SpriteRenderer answerSpriteRenderer = correctAnswer.GetComponent<SpriteRenderer>();
 
+            //
+            SpriteRenderer answerSpriteRenderer = correctAnswer.GetComponent<SpriteRenderer>();
             WrongLayerPosition.position = new Vector3(
                 WrongLayerPosition.position.x, 
                 WrongLayerPosition.position.y + answerSpriteRenderer.bounds.size.y,

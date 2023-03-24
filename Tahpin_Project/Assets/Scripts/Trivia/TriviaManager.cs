@@ -39,7 +39,7 @@ public class TriviaManager : MonoBehaviour
     public TextAsset csvFile;
 
 
-    private void Start()
+    /*private void Start()
     {
         //Questions CSV File
         LoadQuestionsFromCSV(csvFile);
@@ -58,6 +58,36 @@ public class TriviaManager : MonoBehaviour
 
         // Print out the number of questions loaded
         Debug.Log("Number of questions: " + qNa.Count);
+    }*/
+
+    public void GameStart()
+    {
+        //Questions CSV File
+        LoadQuestionsFromCSV(csvFile);
+
+        // This is to set up the first question to show
+        question_counter++;
+        rightAnswerCounter.text = $"{highScore}";
+
+        if (question_counter != 1)
+        {
+            qNa.RemoveAt(currentQuestion);
+        }
+
+        //Generating Questions
+        GenerateQuestion();
+
+        // Print out the number of questions loaded
+        Debug.Log("Number of questions: " + qNa.Count);
+    }
+
+    public void ResetGame()
+    {
+        highScore = 0;
+        exp = 100;
+        rightAnswerCounter.text = $"{highScore}";
+        triviaMain.SetActive(true);
+        triviaResults.SetActive(false);
     }
 
     private void LoadQuestionsFromCSV(TextAsset csvText)
