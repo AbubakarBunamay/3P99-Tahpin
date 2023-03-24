@@ -7,6 +7,12 @@ public class CatchAnswer : MonoBehaviour
 
     public bool isCorrect;
     private bool onlyOneHit = false;
+    private LevelManagerCatch levelManager;
+
+    public void SetLevelManager(LevelManagerCatch levelManager)
+    {
+        this.levelManager = levelManager;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -15,7 +21,6 @@ public class CatchAnswer : MonoBehaviour
             if (collision.gameObject.CompareTag("Bottom"))
             {
                 onlyOneHit = true;
-                LevelManagerCatch levelManager = FindObjectOfType<LevelManagerCatch>();
                 levelManager.BasketHit(false);
             }
         }
@@ -23,7 +28,8 @@ public class CatchAnswer : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Bottom"))
             {
-                gameObject.tag = "Bottom";
+                //gameObject.tag = "Bottom";
+                Destroy(gameObject);
             }
         }
     }

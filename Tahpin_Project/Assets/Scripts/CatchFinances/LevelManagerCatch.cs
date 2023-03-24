@@ -177,12 +177,16 @@ public class LevelManagerCatch : MonoBehaviour
             {
                 GameObject spawnedFallingAnswer = Instantiate(wrongAnswer, spawnPositionVector, Quaternion.identity);
                 spawnedFallingAnswer.transform.GetChild(0).GetComponent<TextMeshPro>().text = questionAnswers[currentQuestionint].Answers[i];
+                CatchAnswer fallingObjectScript = spawnedFallingAnswer.GetComponent<CatchAnswer>();
+                fallingObjectScript.SetLevelManager(this);
                 fallingObjectsList.Add(spawnedFallingAnswer);
             }
             else
             {
                 GameObject spawnedFallingAnswer = Instantiate(correctAnswer, spawnPositionVector, Quaternion.identity);
                 spawnedFallingAnswer.transform.GetChild(0).GetComponent<TextMeshPro>().text = questionAnswers[currentQuestionint].Answers[i];
+                CatchAnswer fallingObjectScript = spawnedFallingAnswer.GetComponent<CatchAnswer>();
+                fallingObjectScript.SetLevelManager(this);
                 fallingObjectsList.Add(spawnedFallingAnswer);
             }
 

@@ -147,9 +147,6 @@ public class TriviaManager : MonoBehaviour
         {
             highScore++;
             rightAnswerCounter.text = $"{highScore}";
-
-            //Show Reason 
-            Debug.Log("Reason for correct answer: " + qNa[currentQuestion].Reason);
         }
         else
         {
@@ -158,7 +155,9 @@ public class TriviaManager : MonoBehaviour
             Debug.Log(feedback);
         }
 
-        
+        //Show Reason 
+        Debug.Log("Reason for correct answer: " + qNa[currentQuestion].Reason);
+
 
         qNa.RemoveAt(currentQuestion);
         GenerateQuestion();
