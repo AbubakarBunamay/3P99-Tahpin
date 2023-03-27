@@ -25,4 +25,23 @@ public class BasketKillVolume : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        CatchAnswer answerScript = collision.gameObject.GetComponent<CatchAnswer>();
+
+        if (answerScript != null)
+        {
+            if (answerScript.isCorrect)
+            {
+                Debug.Log("Correct Answer, Good Job!");
+                levelManager.BasketHit(true);
+            }
+            else
+            {
+                Debug.Log("Wrong Answer Kiddo");
+                levelManager.BasketHit(false);
+            }
+        }
+    }
 }
