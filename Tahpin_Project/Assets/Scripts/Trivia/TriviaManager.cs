@@ -38,6 +38,13 @@ public class TriviaManager : MonoBehaviour
     //TextAsset
     public TextAsset csvFile;
 
+    //Text Hint/Reason
+    public TextMeshProUGUI hint;
+    public TextMeshProUGUI reason;
+
+    //The panel 
+    public GameObject feedbackPanel;
+
 
     /*private void Start()
     {
@@ -147,17 +154,29 @@ public class TriviaManager : MonoBehaviour
         {
             highScore++;
             rightAnswerCounter.text = $"{highScore}";
+            hint.text = "Correct!";
+
         }
         else
         {
             // Display feedback message
+            //string feedback = $"Sorry, the correct answer was {qNa[currentQuestion].Answers[qNa[currentQuestion].CorrectAnswer - 1]}";
+            //Debug.Log(feedback);
+            // Display feedback message
             string feedback = $"Sorry, the correct answer was {qNa[currentQuestion].Answers[qNa[currentQuestion].CorrectAnswer - 1]}";
-            Debug.Log(feedback);
+            hint.text = "Wrong!";
+            reason.text = feedback;
+            
         }
 
         //Show Reason 
-        Debug.Log("Reason for correct answer: " + qNa[currentQuestion].Reason);
+        //Debug.Log("Reason for correct answer: " + qNa[currentQuestion].Reason);
 
+        //Show Reason 
+        reason.text = "Reason: " + qNa[currentQuestion].Reason;
+
+        //Show Panel
+        feedbackPanel.SetActive(true);
 
         qNa.RemoveAt(currentQuestion);
         GenerateQuestion();
@@ -190,6 +209,7 @@ public class TriviaManager : MonoBehaviour
         }
 
 
+
         if (qNa.Count > 0)
         {
             //Randomize the questions
@@ -200,6 +220,9 @@ public class TriviaManager : MonoBehaviour
 
             //Set the answers
             SetAnswers();
+
+            // Hide feedback panel
+            //feedbackPanel.SetActive(false);
 
             // Start a timer to automatically generate the next question after 10 seconds
             questionCoroutine = StartCoroutine(QuestionTimer(10f));

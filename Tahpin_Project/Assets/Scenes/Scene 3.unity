@@ -13641,7 +13641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1060326164
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18901,6 +18901,9 @@ MonoBehaviour:
   homeButton: {fileID: 987243574}
   rightAnswerCounter: {fileID: 1249993745}
   csvFile: {fileID: 4900000, guid: cfdd4440f4a79154dbcab8483db03988, type: 3}
+  hint: {fileID: 1142125516}
+  reason: {fileID: 234292012}
+  feedbackPanel: {fileID: 1060326163}
 --- !u!1 &1534920621
 GameObject:
   m_ObjectHideFlags: 0
