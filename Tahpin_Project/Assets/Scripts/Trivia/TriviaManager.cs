@@ -49,6 +49,7 @@ public class TriviaManager : MonoBehaviour
     // Timer + Clock
     [SerializeField] private float questionTime = 10f;
     [SerializeField] private Image timerImageFill;
+    [SerializeField] private float factReadTime = 2f;
 
 
     /*private void Start()
@@ -85,9 +86,6 @@ public class TriviaManager : MonoBehaviour
         {
             qNa.RemoveAt(currentQuestion);
         }
-
-        //Generating Questions
-        GenerateQuestion();
 
         // Print out the number of questions loaded
         Debug.Log("Number of questions: " + qNa.Count);
@@ -186,7 +184,13 @@ public class TriviaManager : MonoBehaviour
         feedbackPanel.SetActive(true);
 
         qNa.RemoveAt(currentQuestion);
-        GenerateQuestion();
+        StopAllCoroutines();
+        for (int x = 0; x < choices.Length; x++)
+        {
+            choices[x].SetActive(false);
+        }
+        //GenerateQuestion();
+        StartCoroutine(InfoWaitTime(factReadTime));
     }
 
     //Setting Up Answers
@@ -194,6 +198,7 @@ public class TriviaManager : MonoBehaviour
     {
         for (int x = 0; x < choices.Length; x++)
         {
+            choices[x].SetActive(true);
             choices[x].GetComponent<AnswerScript>().isCorrect = false;
             choices[x].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = qNa[currentQuestion].Answers[x];
 
@@ -207,7 +212,7 @@ public class TriviaManager : MonoBehaviour
 
 
     //Generate Questions
-    void GenerateQuestion()
+    public void GenerateQuestion()
     {
         // Stop the previously running coroutine/timer
         if (questionCoroutine != null)
@@ -272,9 +277,37 @@ public class TriviaManager : MonoBehaviour
             yield return null;
         }
 
+        //Show Reason 
+        reason.text = "Reason: " + qNa[currentQuestion].Reason;
+
+        //Show Panel
+        feedbackPanel.SetActive(true);
+
         // Remove the current question and generate the next one
         qNa.RemoveAt(currentQuestion);
+
+        for (int x = 0; x < choices.Length; x++)
+        {
+            choices[x].SetActive(false);
+        }
+
+        StartCoroutine(InfoWaitTime(factReadTime));
+        //GenerateQuestion();
+    }
+
+    private IEnumerator InfoWaitTime(float duration)
+    {
+        float counter = 0f;
+
+        while(counter < duration)
+        {
+            counter += Time.deltaTime;
+            timerImageFill.fillAmount = counter / duration;
+            yield return null;
+        }
+
         GenerateQuestion();
+        feedbackPanel.SetActive(false);
     }
 
     
