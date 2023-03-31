@@ -45,6 +45,10 @@ public class TriviaManager : MonoBehaviour
     //The panel 
     public GameObject feedbackPanel;
 
+    // Timer + Clock
+    [SerializeField] private float questionTime = 10f;
+    [SerializeField] private Image timerImageFill;
+
 
     /*private void Start()
     {
@@ -92,6 +96,7 @@ public class TriviaManager : MonoBehaviour
     {
         highScore = 0;
         exp = 100;
+        timerImageFill.fillAmount = 0;
         rightAnswerCounter.text = $"{highScore}";
         triviaMain.SetActive(true);
         triviaResults.SetActive(false);
@@ -225,7 +230,7 @@ public class TriviaManager : MonoBehaviour
             //feedbackPanel.SetActive(false);
 
             // Start a timer to automatically generate the next question after 10 seconds
-            questionCoroutine = StartCoroutine(QuestionTimer(10f));
+            questionCoroutine = StartCoroutine(QuestionTimer(questionTime));
         }
         else
         {
@@ -249,6 +254,7 @@ public class TriviaManager : MonoBehaviour
         while (elapsedTime < time)
         {
             elapsedTime += Time.deltaTime;
+            timerImageFill.fillAmount = elapsedTime / time;
             yield return null;
         }
 
