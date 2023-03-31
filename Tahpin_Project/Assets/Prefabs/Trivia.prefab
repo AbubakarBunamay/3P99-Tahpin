@@ -2794,7 +2794,7 @@ MonoBehaviour:
   feedbackPanel: {fileID: 8046906168289739433}
   questionTime: 10
   timerImageFill: {fileID: 6414302470782028347}
-  factReadTime: 2
+  factReadTime: 10
 --- !u!1 &8046906170041699524
 GameObject:
   m_ObjectHideFlags: 0
