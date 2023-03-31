@@ -14,7 +14,8 @@ public class LevelManagerCatch : MonoBehaviour
     [SerializeField] private Transform endSpawn;
     [SerializeField] private Transform bottomCollider;
 
-    [SerializeField] private QuestionAnswers[] questionAnswers;
+    [SerializeField] private List<QuestionAnswers> questionAnswers;
+    [SerializeField] private TextAsset csvFile;
 
     [SerializeField] private TextMeshPro questionText;
     [SerializeField] private TextMeshPro highScoreCounterText;
@@ -37,7 +38,10 @@ public class LevelManagerCatch : MonoBehaviour
     private Vector3 originalBasketPosition;
 
     private List<GameObject> fallingObjectsList = new List<GameObject>();
+    private List<GameObject> wrongLayersInSceneList = new List<GameObject>();
     private int currentQuestionint = 0;
+
+    private int countToFiveQuestions = 0;
 
     private int highScore = 0;
     private int expTracker = 100;
@@ -51,6 +55,7 @@ public class LevelManagerCatch : MonoBehaviour
 
     public void StartGame()
     {
+        LoadQuestionsFromCSV(csvFile);
         DropAnswers();
         questionText.text = questionAnswers[currentQuestionint].Question;
     }
@@ -60,7 +65,7 @@ public class LevelManagerCatch : MonoBehaviour
         // Reset Variables
         highScore = 0;
         expTracker = 100;
-        currentQuestionint = 0;
+        countToFiveQuestions = 0;
         // reset highScore text
         highScoreCounterText.text = $"{highScore}";
         // Reset Basket * WrongLayer positions
@@ -73,8 +78,55 @@ public class LevelManagerCatch : MonoBehaviour
         homeButton.SetActive(false);
     }
 
+    private void LoadQuestionsFromCSV(TextAsset csvFile)
+    {
+        // Clear the existing questions list
+        questionAnswers.Clear();
+
+        // Split the CSV data into lines
+        string[] lines = csvFile.text.Split('\n');
+
+        // Loop through each line of the CSV file and add the question and answers to the qNa list
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string[] row = lines[i].Trim().Split(',');
+
+            if (row.Length != 7) // Error Handling
+            {
+                Debug.LogErrorFormat("Invalid CSV format on line {0}: expected 7 columns, found {1}", i + 1, row.Length);
+                continue;
+            }
+            string question = row[0];
+            string[] answers = new string[4];
+            for (int j = 1; j < 5; j++)
+            {
+                answers[j - 1] = row[j];
+            }
+            int correctAnswer;
+
+            if (!int.TryParse(row[5], out correctAnswer)) //Error Handling 
+            {
+                Debug.LogErrorFormat("Invalid CSV format on line {0}: invalid integer value for correct answer", i + 1);
+                continue;
+            }
+
+            // Extract the reason column
+            string reason = row[6];
+
+            // Add the question, answers, and reason to the qNa list
+            questionAnswers.Add(new QuestionAnswers { Question = question, Answers = answers, CorrectAnswer = correctAnswer, Reason = reason });
+        }
+
+        if (questionAnswers.Count == 0)
+        {
+            Debug.LogError("Failed to load any questions from CSV file");
+            return;
+        }
+    }
+
     public void DropAnswers()
     {
+        countToFiveQuestions++;
         StartCoroutine("CycleThroughAnswersThenDrop");
     }
 
@@ -116,17 +168,18 @@ public class LevelManagerCatch : MonoBehaviour
             fallingObjectsList.Clear();
 
             // Instantiate a layer of blocks to reduce the play area
-            Instantiate(WrongLayerPrefab,WrongLayerPosition.position,Quaternion.identity);
+            GameObject newWrongLayer = Instantiate(WrongLayerPrefab,WrongLayerPosition.position,Quaternion.identity);
 
+            wrongLayersInSceneList.Add(newWrongLayer);
             //
-            SpriteRenderer answerSpriteRenderer = correctAnswer.GetComponent<SpriteRenderer>();
+            SpriteRenderer wrongLayerSpriteRenderer = WrongLayerPrefab.GetComponentInChildren<SpriteRenderer>();
             WrongLayerPosition.position = new Vector3(
                 WrongLayerPosition.position.x, 
-                WrongLayerPosition.position.y + answerSpriteRenderer.bounds.size.y,
+                WrongLayerPosition.position.y + wrongLayerSpriteRenderer.bounds.size.y,
                 WrongLayerPosition.position.z
                 );
 
-            float newYPos = basket.transform.position.y + answerSpriteRenderer.bounds.size.y;
+            float newYPos = basket.transform.position.y + wrongLayerSpriteRenderer.bounds.size.y;
             basket.UpdateYPosition(newYPos);
         }
 
@@ -140,9 +193,18 @@ public class LevelManagerCatch : MonoBehaviour
     {
         currentQuestionint++;
 
-        if (currentQuestionint >= questionAnswers.Length)
+        if (countToFiveQuestions >= 5)
         {
+            Debug.Log("Five Questions Reached");
+            countToFiveQuestions = 0;
             ShowResults();
+        }
+        else if(currentQuestionint >= questionAnswers.Count)
+        {
+            Debug.Log("Reached End of All Questions");
+            currentQuestionint = 0;
+            questionText.text = questionAnswers[currentQuestionint].Question;
+            DropAnswers();
         }
         else
         {
@@ -161,6 +223,12 @@ public class LevelManagerCatch : MonoBehaviour
         finalHighScoreText.text = $"Right Answers: {highScore}";
         expEarned.text = $"Total Exp earned: {expTracker * highScore}";
         homeButton.SetActive(true);
+
+        foreach(GameObject layer in wrongLayersInSceneList)
+        {
+            Destroy(layer);
+        }
+        wrongLayersInSceneList.Clear();
 
     }
 

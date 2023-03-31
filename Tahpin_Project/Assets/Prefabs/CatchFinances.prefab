@@ -1241,39 +1241,8 @@ MonoBehaviour:
   startSpawn: {fileID: 3053965003710288508}
   endSpawn: {fileID: 3053965005364818057}
   bottomCollider: {fileID: 3053965004214445662}
-  questionAnswers:
-  - Question: Which Answer is Correct1
-    Answers:
-    - Wrong 1
-    - True
-    - Wrong 1
-    - Wrong 1
-    CorrectAnswer: 1
-    Reason: 
-  - Question: Which Answer is Correct2
-    Answers:
-    - Wrong 2
-    - Wrong 2
-    - True
-    - Wrong 2
-    CorrectAnswer: 2
-    Reason: 
-  - Question: Which Answer is Correct3
-    Answers:
-    - True
-    - Wrong 3
-    - Wrong 3
-    - Wrong 3
-    CorrectAnswer: 0
-    Reason: 
-  - Question: Which Answer is Correct4
-    Answers:
-    - Wrong 4
-    - Wrong 4
-    - Wrong 4
-    - True
-    CorrectAnswer: 3
-    Reason: 
+  questionAnswers: []
+  csvFile: {fileID: 4900000, guid: cfdd4440f4a79154dbcab8483db03988, type: 3}
   questionText: {fileID: 3053965004913836546}
   highScoreCounterText: {fileID: 3053965005268698344}
   catchFinancesMain: {fileID: 3053965004301216062}

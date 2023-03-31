@@ -20,6 +20,7 @@ public class TriviaManager : MonoBehaviour
 
     //Seting up first question to show
     public int question_counter = 0;
+    private int countToFiveQuestions = 0;
 
 
     [SerializeField] private GameObject triviaMain;
@@ -214,11 +215,18 @@ public class TriviaManager : MonoBehaviour
         }
 
 
-
-        if (qNa.Count > 0)
+        if(countToFiveQuestions >= 5)
+        {
+            countToFiveQuestions= 0;
+            GameEnd();
+        }
+        else if (qNa.Count > 0)
         {
             //Randomize the questions
             currentQuestion = Random.Range(0, qNa.Count);
+
+            // Increment Quesiton tracker
+            countToFiveQuestions++;
 
             //Add Questions
             Questiontxt.text = qNa[currentQuestion].Question;
@@ -234,16 +242,21 @@ public class TriviaManager : MonoBehaviour
         }
         else
         {
-            //Possible UI for such
-            Debug.Log("End of Questions");
-            triviaMain.SetActive(false);
-            triviaResults.SetActive(true);
-            rightAnswerCounterResults.text = $"Right Answers: {highScore}";
-            expCounterResults.text = $"Total Exp earned: {exp * highScore}";
-            //or return to the main menu
-            homeButton.SetActive(true);
-            questionCoroutine = null; //Null the coroutine
+            GameEnd();
         }
+    }
+
+    private void GameEnd()
+    {
+        //Possible UI for such
+        Debug.Log("End of Questions");
+        triviaMain.SetActive(false);
+        triviaResults.SetActive(true);
+        rightAnswerCounterResults.text = $"Right Answers: {highScore}";
+        expCounterResults.text = $"Total Exp earned: {exp * highScore}";
+        //or return to the main menu
+        homeButton.SetActive(true);
+        questionCoroutine = null; //Null the coroutine
     }
 
     // Timer function to generate next question after a set amount of time
