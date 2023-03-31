@@ -23,10 +23,10 @@ public class LevelManagerCatch : MonoBehaviour
     [SerializeField] private GameObject catchFinancesMain;
     [SerializeField] private GameObject catchFinancesResults;
 
-    [SerializeField] private TextMeshPro finalHighScoreText;
-    [SerializeField] private TextMeshPro expEarned;
+    //[SerializeField] private TextMeshPro finalHighScoreText;
+    //[SerializeField] private TextMeshPro expEarned;
 
-    [SerializeField] private GameObject homeButton;
+    //[SerializeField] private GameObject homeButton;
 
     [Header("Basket")]
     [SerializeField] private BascketMouse basket;
@@ -75,7 +75,19 @@ public class LevelManagerCatch : MonoBehaviour
         // Reset the game scene
         catchFinancesMain.gameObject.SetActive(true);
         catchFinancesResults.gameObject.SetActive(false);
-        homeButton.SetActive(false);
+        //homeButton.SetActive(false);
+        // Destroy all answers and wronglayers
+        foreach (GameObject i in fallingObjectsList)
+        {
+            Destroy(i);
+        }
+        foreach (GameObject layer in wrongLayersInSceneList)
+        {
+            Destroy(layer);
+        }
+        // Clear the lists
+        fallingObjectsList.Clear();
+        wrongLayersInSceneList.Clear();
     }
 
     private void LoadQuestionsFromCSV(TextAsset csvFile)
@@ -220,9 +232,9 @@ public class LevelManagerCatch : MonoBehaviour
         catchFinancesMain.gameObject.SetActive(false);
         catchFinancesResults.gameObject.SetActive(true);
 
-        finalHighScoreText.text = $"Right Answers: {highScore}";
-        expEarned.text = $"Total Exp earned: {expTracker * highScore}";
-        homeButton.SetActive(true);
+        //finalHighScoreText.text = $"Right Answers: {highScore}";
+        //expEarned.text = $"Total Exp earned: {expTracker * highScore}";
+        //homeButton.SetActive(true);
 
         foreach(GameObject layer in wrongLayersInSceneList)
         {

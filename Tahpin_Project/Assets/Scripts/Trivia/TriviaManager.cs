@@ -26,8 +26,8 @@ public class TriviaManager : MonoBehaviour
     [SerializeField] private GameObject triviaMain;
     [SerializeField] private GameObject triviaResults;
 
-    [SerializeField] private TextMeshPro rightAnswerCounterResults;
-    [SerializeField] private TextMeshPro expCounterResults;
+    //[SerializeField] private TextMeshPro rightAnswerCounterResults;
+    //[SerializeField] private TextMeshPro expCounterResults;
     [SerializeField] private GameObject homeButton;
 
     [SerializeField] private TextMeshProUGUI rightAnswerCounter;
@@ -101,6 +101,7 @@ public class TriviaManager : MonoBehaviour
         rightAnswerCounter.text = $"{highScore}";
         triviaMain.SetActive(true);
         triviaResults.SetActive(false);
+        feedbackPanel.SetActive(false);
     }
 
     private void LoadQuestionsFromCSV(TextAsset csvText)
@@ -252,8 +253,8 @@ public class TriviaManager : MonoBehaviour
         Debug.Log("End of Questions");
         triviaMain.SetActive(false);
         triviaResults.SetActive(true);
-        rightAnswerCounterResults.text = $"Right Answers: {highScore}";
-        expCounterResults.text = $"Total Exp earned: {exp * highScore}";
+        //rightAnswerCounterResults.text = $"Right Answers: {highScore}";
+        //expCounterResults.text = $"Total Exp earned: {exp * highScore}";
         //or return to the main menu
         homeButton.SetActive(true);
         questionCoroutine = null; //Null the coroutine
