@@ -22848,6 +22848,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CatchFinances
       objectReference: {fileID: 0}
+    - target: {fileID: 3053965005512668962, guid: 8312a73e8aee61042bf0c871f2c140a7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3053965005512668989, guid: 8312a73e8aee61042bf0c871f2c140a7, type: 3}
       propertyPath: m_RootOrder
       value: 4
