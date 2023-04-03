@@ -51,6 +51,7 @@ public class TriviaManager : MonoBehaviour
     [SerializeField] private Image timerImageFill;
     [SerializeField] private float factReadTime = 2f;
 
+    private bool canContinue = false;
 
     /*private void Start()
     {
@@ -306,10 +307,20 @@ public class TriviaManager : MonoBehaviour
             yield return null;
         }
 
-        GenerateQuestion();
-        feedbackPanel.SetActive(false);
+        //GenerateQuestion();
+        //feedbackPanel.SetActive(false);
+        Debug.Log("Tap to continue"); // Display message to tap to continue
+        canContinue = true; // Allow the player to continue
     }
 
-    
+    void Update()
+    {
+        if (canContinue && Input.GetMouseButtonDown(0)) // Check if the player can continue and has tapped
+        {
+            GenerateQuestion(); // Generate the next question
+            feedbackPanel.SetActive(false); // Hide the feedback panel
+            canContinue = false; // Reset canContinue
+        }
+    }
 
 }
