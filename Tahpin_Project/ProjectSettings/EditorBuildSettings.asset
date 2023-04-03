@@ -17,12 +17,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Scene 2.unity
     guid: 66daadee57dd7104da9123cca6be0cfe
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Trivia.unity
     guid: c9786ddc0f8fc2b4cb2f29f47724edf2
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Catch_finances.unity
     guid: 284729c8c827a5e49a51c0e95fc1c768
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 73b7ceda990fbdb448b37edcb1d73b6f, type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: 15fb8be42ccb96f47bf07aa3c58a37b6, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 2a2297937a4621c4d9336ef8921bad87, type: 2}
