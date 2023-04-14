@@ -13,15 +13,16 @@ public class BasketKillVolume : MonoBehaviour
 
         if(answerScript != null)
         {
-            if (answerScript.isCorrect)
+            if (answerScript.slotNumIdentity != 0)
             {
                 Debug.Log("Correct Answer, Good Job!");
-                levelManager.BasketHit(true);
+                levelManager.BasketHit(answerScript.slotNumIdentity, answerScript.answerText);
+                answerScript.gameObject.SetActive(false);
             }
             else
             {
                 Debug.Log("Wrong Answer Kiddo");
-                levelManager.BasketHit(false);
+                levelManager.AnAnswerHitGround();
             }
         }
     }
@@ -32,15 +33,16 @@ public class BasketKillVolume : MonoBehaviour
 
         if (answerScript != null)
         {
-            if (answerScript.isCorrect)
+            if (answerScript.slotNumIdentity != 0)
             {
                 Debug.Log("Correct Answer, Good Job!");
-                levelManager.BasketHit(true);
+                levelManager.BasketHit(answerScript.slotNumIdentity, answerScript.answerText);
+                answerScript.gameObject.SetActive(false);
             }
             else
             {
                 Debug.Log("Wrong Answer Kiddo");
-                levelManager.BasketHit(false);
+                levelManager.AnAnswerHitGround();
             }
         }
     }

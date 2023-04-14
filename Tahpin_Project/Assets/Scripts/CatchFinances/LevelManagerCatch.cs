@@ -14,7 +14,7 @@ public class LevelManagerCatch : MonoBehaviour
     [SerializeField] private Transform endSpawn;
     [SerializeField] private Transform bottomCollider;
 
-    [SerializeField] private List<QuestionAnswers> questionAnswers;
+    [SerializeField] private List<CatchQuestionAnswers> catchQuestionAnswers;
     [SerializeField] private TextAsset csvFile;
 
     [SerializeField] private TextMeshPro questionText;
@@ -40,6 +40,7 @@ public class LevelManagerCatch : MonoBehaviour
     private List<GameObject> fallingObjectsList = new List<GameObject>();
     private List<GameObject> wrongLayersInSceneList = new List<GameObject>();
     private int currentQuestionint = 0;
+    private int currentAnswerint = 0;
 
     private int countToFiveQuestions = 0;
 
@@ -57,7 +58,7 @@ public class LevelManagerCatch : MonoBehaviour
     {
         LoadQuestionsFromCSV(csvFile);
         DropAnswers();
-        questionText.text = questionAnswers[currentQuestionint].Question;
+        questionText.text = catchQuestionAnswers[currentQuestionint].CombineQuestionText(); ;
     }
 
     public void RestartGame()
@@ -93,7 +94,7 @@ public class LevelManagerCatch : MonoBehaviour
     private void LoadQuestionsFromCSV(TextAsset csvFile)
     {
         // Clear the existing questions list
-        questionAnswers.Clear();
+        catchQuestionAnswers.Clear();
 
         // Split the CSV data into lines
         string[] lines = csvFile.text.Split('\n');
@@ -103,33 +104,106 @@ public class LevelManagerCatch : MonoBehaviour
         {
             string[] row = lines[i].Trim().Split(',');
 
-            if (row.Length != 7) // Error Handling
+            if (row.Length != 10) // Error Handling
             {
-                Debug.LogErrorFormat("Invalid CSV format on line {0}: expected 7 columns, found {1}", i + 1, row.Length);
+                Debug.LogErrorFormat("Invalid CSV format on line {0}: expected 10 columns, found {1}", i + 1, row.Length);
                 continue;
             }
-            string question = row[0];
-            string[] answers = new string[4];
-            for (int j = 1; j < 5; j++)
+
+            string[] questionSpereated = row[0].Split('[', ']');
+
+            List<CatchQuestionFormat> question = new List<CatchQuestionFormat>();
+
+            for (int x = 0; x < questionSpereated.Length; x++)
+            {
+                CatchQuestionFormat temp = new CatchQuestionFormat();
+
+                temp.Text = questionSpereated[x];
+
+                if (questionSpereated[x] == "1")
+                {
+                    temp.SlotIdentification = 1;
+                    temp.Text = "___";
+                }
+                else if (questionSpereated[x] == "2")
+                {
+                    temp.SlotIdentification = 2;
+                    temp.Text = "___";
+                }
+                else if (questionSpereated[x] == "3")
+                {
+                    temp.SlotIdentification = 3;
+                    temp.Text = "___";
+                }
+                else
+                {
+                    temp.SlotIdentification = 0;
+                }
+
+                question.Add(temp);
+            }
+
+                /*CatchQuestionFormat[] question = new CatchQuestionFormat[questionSpereated.Length];
+                for(int y = 1; y < question.Length; y++)
+                {
+                    for(int x = 0;x < questionSpereated.Length;x++)
+                    {
+
+                        Debug.Log(question[y]);
+                        question[y].Text = questionSpereated[x];
+
+                        if (questionSpereated[0] == "1")
+                        {
+                            question[y].SlotIdentification = 1;
+                            question[y].Text = "___";
+                        }
+                        else if (questionSpereated[0] == "2")
+                        {
+                            question[y].SlotIdentification = 2;
+                            question[y].Text = "___";
+                        }
+                        else if (questionSpereated[0] == "3")
+                        {
+                            question[y].SlotIdentification = 3;
+                            question[y].Text = "___";
+                        }
+                        else
+                        {
+                            question[y].SlotIdentification = 0;
+                        }
+                    }
+                }*/
+
+            string[] answers = new string[6];
+            for (int j = 1; j < 7; j++)
             {
                 answers[j - 1] = row[j];
             }
-            int correctAnswer;
+            int correctAnswer1;
+            int correctAnswer2;
+            int correctAnswer3;
 
-            if (!int.TryParse(row[5], out correctAnswer)) //Error Handling 
+            if (!int.TryParse(row[7], out correctAnswer1)) //Error Handling 
+            {
+                Debug.LogErrorFormat("Invalid CSV format on line {0}: invalid integer value for correct answer", i + 1);
+                continue;
+            }
+            if (!int.TryParse(row[8], out correctAnswer2)) //Error Handling 
+            {
+                Debug.LogErrorFormat("Invalid CSV format on line {0}: invalid integer value for correct answer", i + 1);
+                continue;
+            }
+            if (!int.TryParse(row[9], out correctAnswer3)) //Error Handling 
             {
                 Debug.LogErrorFormat("Invalid CSV format on line {0}: invalid integer value for correct answer", i + 1);
                 continue;
             }
 
-            // Extract the reason column
-            string reason = row[6];
-
             // Add the question, answers, and reason to the qNa list
-            questionAnswers.Add(new QuestionAnswers { Question = question, Answers = answers, CorrectAnswer = correctAnswer, Reason = reason });
+            catchQuestionAnswers.Add(new CatchQuestionAnswers { Question = question, Answers = answers, CorrectSlotOne = correctAnswer1, CorrectSlotTwo = correctAnswer2, CorrectSlotThree = correctAnswer3 });
         }
 
-        if (questionAnswers.Count == 0)
+        if (catchQuestionAnswers.Count == 0)
         {
             Debug.LogError("Failed to load any questions from CSV file");
             return;
@@ -142,13 +216,27 @@ public class LevelManagerCatch : MonoBehaviour
         StartCoroutine("CycleThroughAnswersThenDrop");
     }
 
-    public void BasketHit(bool answerWasCorrect)
+    public void BasketHit(int slotIdentity , string answerText)
     {
-        if (answerWasCorrect)
+        if (slotIdentity != 0)
         {
             // Increase correct answer tracker
             highScore++;
             highScoreCounterText.text = $"{highScore}";
+            
+            foreach(CatchQuestionFormat word in catchQuestionAnswers[currentQuestionint].Question)
+            {
+                if(word.SlotIdentification == slotIdentity)
+                {
+                    word.Text = answerText;
+                    break;
+                }
+            }
+            questionText.text = catchQuestionAnswers[currentQuestionint].CombineQuestionText();
+        }
+
+        if (currentAnswerint >= 2)
+        {
             // Destroy all the falling objects
             foreach (GameObject i in fallingObjectsList)
             {
@@ -156,44 +244,40 @@ public class LevelManagerCatch : MonoBehaviour
             }
             // Clear the list
             fallingObjectsList.Clear();
+            StopAllCoroutines();
+
+            new WaitForSeconds(1);
+            NewQuestion();
         }
-        else
+
+        currentAnswerint++;
+    }
+
+    public void AnAnswerHitGround()
+    {
+        foreach (GameObject i in fallingObjectsList)
         {
-            foreach (GameObject i in fallingObjectsList)
-            {
-                // Old code which placed the wrong answers at the bottom of the page
-                /*float spawnPositionX = Random.Range(startSpawn.position.x, endSpawn.position.x);
-                if (!i.GetComponent<CatchAnswer>().isCorrect)
-                {
-                    i.transform.position = new Vector3(spawnPositionX, bottomCollider.transform.position.y + 1.220249f, i.transform.position.z);
-                    i.tag = "Bottom";
-                }
-                else
-                {
-                    Destroy(i);
-                }*/
-
-                // Destroy the falling objects
-                Destroy(i);
-            }
-            // Clear the list
-            fallingObjectsList.Clear();
-
-            // Instantiate a layer of blocks to reduce the play area
-            GameObject newWrongLayer = Instantiate(WrongLayerPrefab,WrongLayerPosition.position,Quaternion.identity);
-
-            wrongLayersInSceneList.Add(newWrongLayer);
-            //
-            SpriteRenderer wrongLayerSpriteRenderer = WrongLayerPrefab.GetComponentInChildren<SpriteRenderer>();
-            WrongLayerPosition.position = new Vector3(
-                WrongLayerPosition.position.x, 
-                WrongLayerPosition.position.y + wrongLayerSpriteRenderer.bounds.size.y,
-                WrongLayerPosition.position.z
-                );
-
-            float newYPos = basket.transform.position.y + wrongLayerSpriteRenderer.bounds.size.y;
-            basket.UpdateYPosition(newYPos);
+            // Destroy the falling objects
+            Destroy(i);
         }
+        // Clear the list
+        fallingObjectsList.Clear();
+
+        // Instantiate a layer of blocks to reduce the play area
+        GameObject newWrongLayer = Instantiate(WrongLayerPrefab, WrongLayerPosition.position, Quaternion.identity);
+
+        wrongLayersInSceneList.Add(newWrongLayer);
+        //
+        SpriteRenderer wrongLayerSpriteRenderer = WrongLayerPrefab.GetComponentInChildren<SpriteRenderer>();
+        WrongLayerPosition.position = new Vector3(
+            WrongLayerPosition.position.x,
+            WrongLayerPosition.position.y + wrongLayerSpriteRenderer.bounds.size.y,
+            WrongLayerPosition.position.z
+            );
+
+        float newYPos = basket.transform.position.y + wrongLayerSpriteRenderer.bounds.size.y;
+        basket.UpdateYPosition(newYPos);
+
 
         StopAllCoroutines();
 
@@ -211,19 +295,20 @@ public class LevelManagerCatch : MonoBehaviour
             countToFiveQuestions = 0;
             ShowResults();
         }
-        else if(currentQuestionint >= questionAnswers.Count)
+        else if(currentQuestionint >= catchQuestionAnswers.Count)
         {
             Debug.Log("Reached End of All Questions");
             currentQuestionint = 0;
-            questionText.text = questionAnswers[currentQuestionint].Question;
+            questionText.text = catchQuestionAnswers[currentQuestionint].CombineQuestionText();
             DropAnswers();
         }
         else
         {
-            questionText.text = questionAnswers[currentQuestionint].Question;
+            questionText.text = catchQuestionAnswers[currentQuestionint].CombineQuestionText();
             DropAnswers();
         }
 
+        currentAnswerint = 0;
     }
 
     public void ShowResults()
@@ -249,14 +334,39 @@ public class LevelManagerCatch : MonoBehaviour
         
         //int randomIntAnswer = Random.Range(0, questionAnswers[currentQuestionint].Answers.Length);
 
-        for (int i = 0; i < questionAnswers[currentQuestionint].Answers.Length; i++)
+        for (int i = 0; i < catchQuestionAnswers[currentQuestionint].Answers.Length; i++)
         {
             float spawnPosition = Random.Range(startSpawn.position.x, endSpawn.position.x);
             Vector3 spawnPositionVector = new Vector3(spawnPosition, startSpawn.position.y, 0);
-            if (i != questionAnswers[currentQuestionint].CorrectAnswer)
+
+            GameObject spawnedFallingAnswer = Instantiate(wrongAnswer, spawnPositionVector, Quaternion.identity);
+            spawnedFallingAnswer.transform.GetChild(0).GetComponent<TextMeshPro>().text = catchQuestionAnswers[currentQuestionint].Answers[i];
+            CatchAnswer fallingObjectScript = spawnedFallingAnswer.GetComponent<CatchAnswer>();
+            fallingObjectScript.SetLevelManager(this);
+            fallingObjectScript.answerText = catchQuestionAnswers[currentQuestionint].Answers[i];
+
+            if (i == catchQuestionAnswers[currentQuestionint].CorrectSlotOne - 1)
+            {
+                fallingObjectScript.slotNumIdentity = 1;
+            }
+            else if (i == catchQuestionAnswers[currentQuestionint].CorrectSlotTwo - 1)
+            {
+                fallingObjectScript.slotNumIdentity = 2;
+            }
+            else if(i == catchQuestionAnswers[currentQuestionint].CorrectSlotThree - 1)
+            {
+                fallingObjectScript.slotNumIdentity = 3;
+            }
+            else
+            {
+                fallingObjectScript.slotNumIdentity = 0;
+            }
+            fallingObjectsList.Add(spawnedFallingAnswer);
+
+            /*if (i != catchQuestionAnswers[currentQuestionint].CorrectSlotOne)
             {
                 GameObject spawnedFallingAnswer = Instantiate(wrongAnswer, spawnPositionVector, Quaternion.identity);
-                spawnedFallingAnswer.transform.GetChild(0).GetComponent<TextMeshPro>().text = questionAnswers[currentQuestionint].Answers[i];
+                spawnedFallingAnswer.transform.GetChild(0).GetComponent<TextMeshPro>().text = catchQuestionAnswers[currentQuestionint].Answers[i];
                 CatchAnswer fallingObjectScript = spawnedFallingAnswer.GetComponent<CatchAnswer>();
                 fallingObjectScript.SetLevelManager(this);
                 fallingObjectsList.Add(spawnedFallingAnswer);
@@ -264,14 +374,16 @@ public class LevelManagerCatch : MonoBehaviour
             else
             {
                 GameObject spawnedFallingAnswer = Instantiate(correctAnswer, spawnPositionVector, Quaternion.identity);
-                spawnedFallingAnswer.transform.GetChild(0).GetComponent<TextMeshPro>().text = questionAnswers[currentQuestionint].Answers[i];
+                spawnedFallingAnswer.transform.GetChild(0).GetComponent<TextMeshPro>().text = catchQuestionAnswers[currentQuestionint].Answers[i];
                 CatchAnswer fallingObjectScript = spawnedFallingAnswer.GetComponent<CatchAnswer>();
                 fallingObjectScript.SetLevelManager(this);
                 fallingObjectsList.Add(spawnedFallingAnswer);
-            }
+            }*/
 
             yield return new WaitForSeconds(2);
         }
     }
 
 }
+
+

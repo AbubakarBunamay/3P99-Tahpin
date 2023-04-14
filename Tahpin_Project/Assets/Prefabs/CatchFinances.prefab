@@ -1264,8 +1264,8 @@ MonoBehaviour:
   startSpawn: {fileID: 3053965003710288508}
   endSpawn: {fileID: 3053965005364818057}
   bottomCollider: {fileID: 3053965004214445662}
-  questionAnswers: []
-  csvFile: {fileID: 4900000, guid: cfdd4440f4a79154dbcab8483db03988, type: 3}
+  catchQuestionAnswers: []
+  csvFile: {fileID: 4900000, guid: 7ba6d0cdb1dc85a47aa2150cef4c6f86, type: 3}
   questionText: {fileID: 3053965004913836546}
   highScoreCounterText: {fileID: 3053965005268698344}
   catchFinancesMain: {fileID: 3053965004301216062}

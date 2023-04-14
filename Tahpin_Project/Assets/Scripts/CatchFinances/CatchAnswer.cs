@@ -5,7 +5,8 @@ using UnityEngine;
 public class CatchAnswer : MonoBehaviour
 {
 
-    public bool isCorrect;
+    public int slotNumIdentity;
+    public string answerText;
     private bool onlyOneHit = false;
     private LevelManagerCatch levelManager;
 
@@ -16,12 +17,12 @@ public class CatchAnswer : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isCorrect && onlyOneHit == false)
+        if (slotNumIdentity != 0 && onlyOneHit == false)
         {
             if (collision.gameObject.CompareTag("Bottom"))
             {
                 onlyOneHit = true;
-                levelManager.BasketHit(false);
+                levelManager.AnAnswerHitGround();
             }
         }
         else
