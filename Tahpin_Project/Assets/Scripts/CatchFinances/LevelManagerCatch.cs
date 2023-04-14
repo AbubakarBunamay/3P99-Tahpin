@@ -143,37 +143,6 @@ public class LevelManagerCatch : MonoBehaviour
                 question.Add(temp);
             }
 
-                /*CatchQuestionFormat[] question = new CatchQuestionFormat[questionSpereated.Length];
-                for(int y = 1; y < question.Length; y++)
-                {
-                    for(int x = 0;x < questionSpereated.Length;x++)
-                    {
-
-                        Debug.Log(question[y]);
-                        question[y].Text = questionSpereated[x];
-
-                        if (questionSpereated[0] == "1")
-                        {
-                            question[y].SlotIdentification = 1;
-                            question[y].Text = "___";
-                        }
-                        else if (questionSpereated[0] == "2")
-                        {
-                            question[y].SlotIdentification = 2;
-                            question[y].Text = "___";
-                        }
-                        else if (questionSpereated[0] == "3")
-                        {
-                            question[y].SlotIdentification = 3;
-                            question[y].Text = "___";
-                        }
-                        else
-                        {
-                            question[y].SlotIdentification = 0;
-                        }
-                    }
-                }*/
-
             string[] answers = new string[6];
             for (int j = 1; j < 7; j++)
             {
@@ -362,23 +331,6 @@ public class LevelManagerCatch : MonoBehaviour
                 fallingObjectScript.slotNumIdentity = 0;
             }
             fallingObjectsList.Add(spawnedFallingAnswer);
-
-            /*if (i != catchQuestionAnswers[currentQuestionint].CorrectSlotOne)
-            {
-                GameObject spawnedFallingAnswer = Instantiate(wrongAnswer, spawnPositionVector, Quaternion.identity);
-                spawnedFallingAnswer.transform.GetChild(0).GetComponent<TextMeshPro>().text = catchQuestionAnswers[currentQuestionint].Answers[i];
-                CatchAnswer fallingObjectScript = spawnedFallingAnswer.GetComponent<CatchAnswer>();
-                fallingObjectScript.SetLevelManager(this);
-                fallingObjectsList.Add(spawnedFallingAnswer);
-            }
-            else
-            {
-                GameObject spawnedFallingAnswer = Instantiate(correctAnswer, spawnPositionVector, Quaternion.identity);
-                spawnedFallingAnswer.transform.GetChild(0).GetComponent<TextMeshPro>().text = catchQuestionAnswers[currentQuestionint].Answers[i];
-                CatchAnswer fallingObjectScript = spawnedFallingAnswer.GetComponent<CatchAnswer>();
-                fallingObjectScript.SetLevelManager(this);
-                fallingObjectsList.Add(spawnedFallingAnswer);
-            }*/
 
             yield return new WaitForSeconds(2);
         }
