@@ -310,7 +310,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3053965003815925690}
   - component: {fileID: 3053965003815925685}
-  m_Layer: 0
+  - component: {fileID: 6617742870978770649}
+  m_Layer: 7
   m_Name: Basket_main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,6 +350,27 @@ MonoBehaviour:
   minXPosition: 0
   maxXPosition: 0
   currentYPosition: -2.5
+--- !u!50 &6617742870978770649
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053965003815925691}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 6
 --- !u!1 &3053965003823130601
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,7 +641,7 @@ GameObject:
   - component: {fileID: 3053965004251167968}
   - component: {fileID: 3053965004251167970}
   - component: {fileID: 3053965004251167971}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: basket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -723,7 +745,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3053965004276237185}
   - component: {fileID: 3053965004276237184}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: right_wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -822,7 +844,7 @@ GameObject:
   - component: {fileID: 3053965004458479930}
   - component: {fileID: 3053965004458479924}
   - component: {fileID: 3053965004458479925}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: basketKillVol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -995,7 +1017,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3053965004892858591}
   - component: {fileID: 3053965004892858590}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: left_wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1283,7 +1305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3053965005107659281}
   - component: {fileID: 3053965005107659280}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: basketBoundary (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1513,7 +1535,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3053965005287650362}
   - component: {fileID: 3053965005287650357}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: basketBoundary (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1666,7 +1688,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3053965005575666619}
   - component: {fileID: 3053965005575666618}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: basketBoundary (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

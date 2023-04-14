@@ -10,13 +10,22 @@ public class BascketMouse : MonoBehaviour
     [SerializeField] private float maxXPosition;
     [SerializeField] private float currentYPosition;
 
+    private Rigidbody2D rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     private void Update()
     {
         Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPosition.z = 0;
         mouseWorldPosition.y = currentYPosition;
-        transform.position = mouseWorldPosition;
+        //transform.position = mouseWorldPosition;
+
+        //rb.position = mouseWorldPosition;
+        rb.MovePosition(mouseWorldPosition);
 
         // Side Restrictions
         // Fix later
@@ -33,5 +42,6 @@ public class BascketMouse : MonoBehaviour
     public void UpdateYPosition(float yPos)
     {
         currentYPosition= yPos;
+        transform.position = new Vector3(transform.position.x, yPos, transform.position.z);
     }
 }
