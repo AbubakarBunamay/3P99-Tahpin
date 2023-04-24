@@ -358,11 +358,11 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3053965003815925691}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.0001
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -641,7 +641,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3053965004251167968}
   - component: {fileID: 3053965004251167970}
-  - component: {fileID: 3053965004251167971}
   m_Layer: 7
   m_Name: basket
   m_TagString: Untagged
@@ -720,22 +719,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3053965004251167971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3053965004251167969}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc32c3fcc6ec6834c91d21b25038b76b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  minXPosition: 0
-  maxXPosition: 0
-  currentYPosition: 0
 --- !u!1 &3053965004276237190
 GameObject:
   m_ObjectHideFlags: 0
