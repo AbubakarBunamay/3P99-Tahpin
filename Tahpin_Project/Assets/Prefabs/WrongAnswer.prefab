@@ -79,9 +79,17 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8749798010408811129, guid: 36a346c4517e6334295cfbbb55c22c8a, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: d3f0ca51987efa74bbaa2f5a61030956, type: 2}
     - target: {fileID: 8749798010408811130, guid: 36a346c4517e6334295cfbbb55c22c8a, type: 3}
       propertyPath: m_Name
       value: WrongAnswer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8749798010408811130, guid: 36a346c4517e6334295cfbbb55c22c8a, type: 3}
+      propertyPath: m_TagString
+      value: FallingAnswer
       objectReference: {fileID: 0}
     - target: {fileID: 8749798010408811131, guid: 36a346c4517e6334295cfbbb55c22c8a, type: 3}
       propertyPath: m_Sprite
