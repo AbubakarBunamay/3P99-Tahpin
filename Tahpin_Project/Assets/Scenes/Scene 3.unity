@@ -23706,6 +23706,10 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1539109111}
+    - target: {fileID: 3053965004988865288, guid: 8312a73e8aee61042bf0c871f2c140a7, type: 3}
+      propertyPath: csvFile
+      value: 
+      objectReference: {fileID: 4900000, guid: c229c19dfc382574ab89199aa49b0961, type: 3}
     - target: {fileID: 3053965005512668962, guid: 8312a73e8aee61042bf0c871f2c140a7, type: 3}
       propertyPath: m_Name
       value: CatchFinances

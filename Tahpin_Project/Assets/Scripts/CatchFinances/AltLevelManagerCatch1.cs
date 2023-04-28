@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
-public class LevelManagerCatch : MonoBehaviour
+public class AltLevelManagerCatch : MonoBehaviour
 {
 
     [SerializeField] private GameObject correctAnswer;
@@ -42,7 +42,6 @@ public class LevelManagerCatch : MonoBehaviour
     private int currentQuestionint = 0;
     private int currentAnswerint = 0;
 
-    private int amountOfBlanks = 0;
     private int countToFiveQuestions = 0;
 
     private int highScore = 0;
@@ -105,7 +104,7 @@ public class LevelManagerCatch : MonoBehaviour
         {
             string[] row = lines[i].Trim().Split(',');
 
-            if (row.Length != 8) // Error Handling
+            if (row.Length != 10) // Error Handling
             {
                 Debug.LogErrorFormat("Invalid CSV format on line {0}: expected 10 columns, found {1}", i + 1, row.Length);
                 continue;
@@ -158,29 +157,15 @@ public class LevelManagerCatch : MonoBehaviour
                 Debug.LogErrorFormat("Invalid CSV format on line {0}: invalid integer value for correct answer", i + 1);
                 continue;
             }
-            if(row.Length > 8)
+            if (!int.TryParse(row[8], out correctAnswer2)) //Error Handling 
             {
-                if (!int.TryParse(row[8], out correctAnswer2)) //Error Handling 
-                {
-                    Debug.LogErrorFormat("Invalid CSV format on line {0}: invalid integer value for correct answer", i + 1);
-                    continue;
-                }
-                if (!int.TryParse(row[9], out correctAnswer3)) //Error Handling 
-                {
-                    Debug.LogErrorFormat("Invalid CSV format on line {0}: invalid integer value for correct answer", i + 1);
-                    continue;
-                }
-                // The amount of blank questions minus 1
-                amountOfBlanks = 2;
+                Debug.LogErrorFormat("Invalid CSV format on line {0}: invalid integer value for correct answer", i + 1);
+                continue;
             }
-            else
+            if (!int.TryParse(row[9], out correctAnswer3)) //Error Handling 
             {
-                // Set these varibales to 0 to prevent errors
-                // Make this more friendly for varing amount of blank questions
-                correctAnswer2 = 0;
-                correctAnswer3 = 0;
-                // The amount of blank questions minus 1
-                amountOfBlanks = 0;
+                Debug.LogErrorFormat("Invalid CSV format on line {0}: invalid integer value for correct answer", i + 1);
+                continue;
             }
 
             // Add the question, answers, and reason to the qNa list
@@ -219,7 +204,7 @@ public class LevelManagerCatch : MonoBehaviour
             questionText.text = catchQuestionAnswers[currentQuestionint].CombineQuestionText();
         }
 
-        if (currentAnswerint >= amountOfBlanks)
+        if (currentAnswerint >= 2)
         {
             // Destroy all the falling objects
             foreach (GameObject i in fallingObjectsList)
@@ -230,7 +215,7 @@ public class LevelManagerCatch : MonoBehaviour
             fallingObjectsList.Clear();
             StopAllCoroutines();
 
-            new WaitForSeconds(2);
+            new WaitForSeconds(1);
             NewQuestion();
         }
 
@@ -265,7 +250,7 @@ public class LevelManagerCatch : MonoBehaviour
 
         StopAllCoroutines();
 
-        new WaitForSeconds(2);
+        new WaitForSeconds(1);
         NewQuestion();
     }
 
@@ -326,7 +311,7 @@ public class LevelManagerCatch : MonoBehaviour
             GameObject spawnedFallingAnswer = Instantiate(wrongAnswer, spawnPositionVector, Quaternion.identity);
             spawnedFallingAnswer.transform.GetChild(0).GetComponent<TextMeshPro>().text = catchQuestionAnswers[currentQuestionint].Answers[i];
             CatchAnswer fallingObjectScript = spawnedFallingAnswer.GetComponent<CatchAnswer>();
-            fallingObjectScript.SetLevelManager(this);
+            //fallingObjectScript.SetLevelManager(this);
             fallingObjectScript.answerText = catchQuestionAnswers[currentQuestionint].Answers[i];
 
             if (i == catchQuestionAnswers[currentQuestionint].CorrectSlotOne - 1)
