@@ -25,6 +25,7 @@ public class TriviaManager : MonoBehaviour
 
     [SerializeField] private GameObject triviaMain;
     [SerializeField] private GameObject triviaResults;
+    [SerializeField] private TextMeshProUGUI finalScoreText;
 
     //[SerializeField] private TextMeshPro rightAnswerCounterResults;
     //[SerializeField] private TextMeshPro expCounterResults;
@@ -259,6 +260,7 @@ public class TriviaManager : MonoBehaviour
         Debug.Log("End of Questions");
         triviaMain.SetActive(false);
         triviaResults.SetActive(true);
+        finalScoreText.text = highScore.ToString();
         //rightAnswerCounterResults.text = $"Right Answers: {highScore}";
         //expCounterResults.text = $"Total Exp earned: {exp * highScore}";
         //or return to the main menu

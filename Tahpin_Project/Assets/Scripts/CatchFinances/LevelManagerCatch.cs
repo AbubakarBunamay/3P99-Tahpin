@@ -22,6 +22,7 @@ public class LevelManagerCatch : MonoBehaviour
 
     [SerializeField] private GameObject catchFinancesMain;
     [SerializeField] private GameObject catchFinancesResults;
+    [SerializeField] private TextMeshProUGUI finalScoreText;
 
     //[SerializeField] private TextMeshPro finalHighScoreText;
     //[SerializeField] private TextMeshPro expEarned;
@@ -300,12 +301,13 @@ public class LevelManagerCatch : MonoBehaviour
         Debug.Log("Results!");
         catchFinancesMain.gameObject.SetActive(false);
         catchFinancesResults.gameObject.SetActive(true);
+        finalScoreText.text = highScore.ToString();
 
         //finalHighScoreText.text = $"Right Answers: {highScore}";
         //expEarned.text = $"Total Exp earned: {expTracker * highScore}";
         //homeButton.SetActive(true);
 
-        foreach(GameObject layer in wrongLayersInSceneList)
+        foreach (GameObject layer in wrongLayersInSceneList)
         {
             Destroy(layer);
         }
